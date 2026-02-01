@@ -7,7 +7,7 @@ http.createServer((req, res) => res.end('Bot is running')).listen(process.env.PO
 
 // ВСТАВЬ СВОИ ДАННЫЕ НИЖЕ
 const token = '8546121789:AAGrnrtC_nsJF-XwvZg8ZXMbaW7eklkebcU';
-const genAI = new GoogleGenerativeAI(AIzaSyCePxAxFCzUmIK5GxxzsErEmvG_ztDBzp8);
+const genAI = new GoogleGenerativeAI('AIzaSyCePxAxFCzUmIK5GxxzsErEmvG_ztDBzp8');
 
 const bot = new TelegramBot(token, { polling: true });
 
