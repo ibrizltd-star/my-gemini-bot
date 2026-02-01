@@ -17,7 +17,7 @@ bot.on('message', async (msg) => {
 
   try {
     // Я уже заменил тут модель на gemini-pro, которая точно работает
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     const result = await model.generateContent(text);
     const response = await result.response;
     bot.sendMessage(chatId, response.text());
