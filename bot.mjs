@@ -1,1 +1,29 @@
-﻿import { Telegraf } from "telegraf"; import { GoogleGenerativeAI } from "@google/generative-ai"; const bot = new Telegraf("8546121789:AAGrnrtC_nsJF-XwvZg8ZXMbaW7eklkebcU"); const genAI = new GoogleGenerativeAI("AIzaSyCePxAxFCzUmIK5GxxzsErEmvG_ztDBzp8"); const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" }); bot.on("text", async (ctx) => { console.log("Пришло сообщение:", ctx.message.text); try { const result = await model.generateContent(ctx.message.text); await ctx.reply(result.response.text()); } catch (e) { console.log("Ошибка:", e.message); ctx.reply("Google Gemini всё еще недоступен в твоем регионе. Попробуй включить любой качественный VPN (не WARP) на компьютере и перезапустить бота."); } }); bot.launch().then(() => console.log("--- БОТ ВКЛЮЧЕН (ПОПЫТКА С ГИБКИМ API) ---"));
+import TelegramBot from 'node-telegram-bot-api';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+import http from 'http';
+
+// Заглушка для порта, чтобы Render не ругался
+http.createServer((req, res) => res.end('Bot is running')).listen(process.env.PORT || 3000);
+
+// ВСТАВЬ СВОИ ДАННЫЕ НИЖЕ
+const token = '8546121789:AAGrnrtC_nsJF-XwvZg8ZXMbaW7eklkebcU';
+const genAI = new GoogleGenerativeAI(AIzaSyCePxAxFCzUmIK5GxxzsErEmvG_ztDBzp8);
+
+const bot = new TelegramBot(token, { polling: true });
+
+bot.on('message', async (msg) => {
+  const chatId = msg.chat.id;
+  const text = msg.text;
+
+  try {
+    // Я уже заменил тут модель на gemini-pro, которая точно работает
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const result = await model.generateContent(text);
+    const response = await result.response;
+    bot.sendMessage(chatId, response.text());
+  } catch (error) {
+    bot.sendMessage(chatId, "Ошибка: " + error.message);
+  }
+});
+
+console.log('--- БОТ ВКЛЮЧЕН (PRO ВЕРСИЯ) ---');
