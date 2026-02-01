@@ -1,3 +1,4 @@
+
 import TelegramBot from 'node-telegram-bot-api';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import http from 'http';
@@ -12,9 +13,10 @@ const bot = new TelegramBot(token, { polling: true });
 bot.on('message', async (msg) => {
   const chatId = msg.chat.id;
   const text = msg.text;
+  if (!text) return;
 
   try {
-const model = const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
     const result = await model.generateContent(text);
     const response = await result.response;
     bot.sendMessage(chatId, response.text());
@@ -24,4 +26,3 @@ const model = const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-
 });
 
 console.log('--- БОТ ВКЛЮЧЕН (PRO ВЕРСИЯ) ---');
-
