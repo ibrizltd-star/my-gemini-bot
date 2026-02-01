@@ -4,7 +4,6 @@ import http from 'http';
 
 http.createServer((req, res) => res.end('Bot is running')).listen(process.env.PORT || 3000);
 
-// ВСТАВЬ СВОИ ДАННЫЕ НИЖЕ
 const token = '8546121789:AAGviVwAPr1Fu4_Wvd2iFDMbJzc0QGw0mpg';
 const genAI = new GoogleGenerativeAI('AIzaSyCePxAxFCzUmIK5GxxzsErEmvG_ztDBzp8');
 
